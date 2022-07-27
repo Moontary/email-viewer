@@ -37,14 +37,7 @@ Back-end:
 - Edit status codes view.
 - Implement universal entrance.
  
-## Customize configuration
-
-
-### Project Setup
-
-```sh
-npm install
-```
+## Config setup
 
 #### Compile and Hot-Reload for Development
 
@@ -58,16 +51,11 @@ npm run dev
 npm run build
 ```
 
-#### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
 ## Back-end patterns for testing
 
 ```sh
 go run backend/main.go
+```
 
 ```postman
 Route: /
