@@ -95,21 +95,22 @@ func addEmail(w http.ResponseWriter, r *http.Request) {
 
 func deleteEmail(w http.ResponseWriter, r *http.Request) {
 	existingEmail := &model.Email{}
-	Name := chi.URLParam(r, "Email")
-	if Name == "" {
+
+	Email := chi.URLParam(r, "Email")
+	if Email == "" {
 		http.Error(w, "Email not found", http.StatusNotFound)
 		return
 	}
-	err := mr.GetOne(existingEmail, bson.M{"Email": Name})
+	err := mr.GetOne(existingEmail, bson.M{"Email": Email})
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Email with name: %s does not exist", Name), 400)
+		http.Error(w, fmt.Sprintf("Email with name: %s does not exist", Email), 400)
 		return
 	}
-	_, err = mr.RemoveOne(bson.M{"Email": Name})
+	_, err = mr.RemoveOne(bson.M{"Email": Email})
 	if err != nil {
 		http.Error(w, fmt.Sprint(err), 400)
 		return
 	}
-	w.Write([]byte("Contact deleted"))
+	w.Write([]byte("Email deleted"))
 	w.WriteHeader(200)
 }

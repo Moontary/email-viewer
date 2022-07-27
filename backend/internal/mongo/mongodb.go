@@ -56,7 +56,7 @@ func (mr *NewEmailRepo) Create(ctx context.Context, report *model.Email) (*model
 }
 
 func (mr *NewEmailRepo) GetOne(e *model.Email, filter interface{}) error {
-	collection := mr.client.Database(mr.database).Collection("contact")
+	collection := mr.client.Database(mr.database).Collection("email")
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	err := collection.FindOne(ctx, filter).Decode(e)
 	return err
@@ -90,14 +90,14 @@ func (mr *NewEmailRepo) GetAll(ctx context.Context) ([]model.Email, error) {
 }
 
 func (mr *NewEmailRepo) AddOne(e *model.Email) (*mongo.InsertOneResult, error) {
-	collection := mr.client.Database(mr.database).Collection("contact")
+	collection := mr.client.Database(mr.database).Collection("email")
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	result, err := collection.InsertOne(ctx, e)
 	return result, err
 }
 
 func (mr *NewEmailRepo) RemoveOne(filter interface{}) (*mongo.DeleteResult, error) {
-	collection := mr.client.Database(mr.database).Collection("contact")
+	collection := mr.client.Database(mr.database).Collection("email")
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 
 	result, err := collection.DeleteOne(ctx, filter)
