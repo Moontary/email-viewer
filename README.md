@@ -33,12 +33,12 @@ Front-end:
 
 Back-end:
 - [ ] Fix validation.
-- [ ] Fix GET and DELETE end-points.
+- [x] ~~Fix GET and DELETE end-points.~~
 - [ ] Fix architecture, folder structures.
 - [ ] Apply clean code.
 - [ ] Edit status codes view.
 - [ ] Implement unified entrance.
-- [ ] Make file
+- [ ] Add Makefile.
 
 ## RUN Front-end
 
@@ -64,7 +64,7 @@ go run backend/main.go
 
 ```postman 
 Route: / 
-GET: /emails [IN PROGRESS] 
+GET: /emails 
 POST: /email 
-DELETE: /{email} [IN PROGRESS] 
+DELETE: /{email} 
 ```  
