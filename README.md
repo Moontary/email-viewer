@@ -1,66 +1,66 @@
-# Email-viewer 
+# Email-viewer
 
-This description shortly introduces how to run the front-end part of app. Back-end handy version in progress. 
+This description shortly introduces how to run the front-end part of app. Back-end handy version in progress.
 
-## DONE  
+## DONE
 
-Front-end: 
+Front-end:
 
-[x] Input field. 
-[x] Add/remove button. 
-[x] Validation for non-empty input. 
-[x] Validation for deletion of non-existent item. 
-[x] Clearing input after adding/deleting the item. 
-[x] Comma separated output. 
-  
-Back-end: 
+- [x] Input field.
+- [x] Add/remove button.
+- [x] Validation for non-empty input.
+- [x] Validation for deletion of non-existent item.
+- [x] Clearing input after adding/deleting the item.
+- [x] Comma separated output.
 
-[x] Implemented POST end-point. 
-[x] Validation for non-empty input. 
-[x] Validation for existing data input. 
-[x] Implemented core logic for GET and DELETE end-points. 
-[x] [TO BE DELETED, CHANGE TO CSV] MongoDB storage.  
-[x] [TO BE DELETED, CHANGE TO CSV] Communication with MongoDB. 
-[x] Docker compose base. Testing required. 
+Back-end:
 
-## TODO 
+- [x] Implemented POST end-point.
+- [x] Validation for non-empty input.
+- [x] Validation for existing data input.
+- [x] Implemented core logic for GET and DELETE end-points.
+- [x] [TO BE DELETED, CHANGE TO CSV] MongoDB storage.  
+- [x] [TO BE DELETED, CHANGE TO CSV] Communication with MongoDB.
+- [x] Docker compose base. Testing required.
 
-Front-end: 
-[] Validation cleaning. 
-[] Fetching. 
-[] Separate view list option to another component. 
-[] CSV rendering. 
+## TODO
 
-Back-end: 
-[] Fix validation. 
-[] Fix GET and DELETE end-points. 
-[] Fix architecture, folder structures. 
-[] Apply clean code. 
-[] Edit status codes view. 
-[] Implement unified entrance. 
-[] Make file 
+Front-end:
+- [] Validation cleaning.
+- [] Fetching.
+- [] Separate view list option to another component.
+- [] CSV rendering.
 
-## RUN Front-end 
+Back-end:
+- [] Fix validation.
+- [] Fix GET and DELETE end-points.
+- [] Fix architecture, folder structures.
+- [] Apply clean code.
+- [] Edit status codes view.
+- [] Implement unified entrance.
+- [] Make file
 
-#### Compile and Hot-Reload for Development 
+## RUN Front-end
+
+#### Compile and Hot-Reload for Development
 
 ```sh 
 npm run dev 
 ```  
 
-#### Compile and Minify for Production 
+#### Compile and Minify for Production
 
 ```sh 
 npm run build 
 ```   
 
-## RUN back-end  
+## RUN back-end
 
 ```sh 
 go run backend/main.go 
 ```  
 
-## End-points for testing  
+## End-points for testing
 
 ```postman 
 Route: / 
