@@ -26,19 +26,19 @@ Back-end:
 ## TODO
 
 Front-end:
-- [] Validation cleaning.
-- [] Fetching.
-- [] Separate view list option to another component.
-- [] CSV rendering.
+- [ ] Validation cleaning.
+- [ ] Fetching.
+- [ ] Separate view list option to another component.
+- [ ] CSV rendering.
 
 Back-end:
-- [] Fix validation.
-- [] Fix GET and DELETE end-points.
-- [] Fix architecture, folder structures.
-- [] Apply clean code.
-- [] Edit status codes view.
-- [] Implement unified entrance.
-- [] Make file
+- [ ] Fix validation.
+- [ ] Fix GET and DELETE end-points.
+- [ ] Fix architecture, folder structures.
+- [ ] Apply clean code.
+- [ ] Edit status codes view.
+- [ ] Implement unified entrance.
+- [ ] Make file
 
 ## RUN Front-end
 
