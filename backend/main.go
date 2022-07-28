@@ -11,12 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
 	"net/http"
-	"net/url"
 )
-
-type Email struct {
-	Email string `json:"email,omitempty" validate:"required,email"`
-}
 
 var mr *mongo.NewEmailRepo
 
@@ -50,23 +45,13 @@ func getAllEmails(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (e *Email) validate() url.Values {
-	err := url.Values{}
-
-	if e.Email == "" {
-		err.Add("Email", "Invalid email")
-	}
-
-	return err
-}
-
 func addEmail(w http.ResponseWriter, r *http.Request) {
 	existingEmail := &model.Email{}
 
 	var m model.Email
 
 	if err := json.NewDecoder(r.Body).Decode(&m); err != nil {
-		fmt.Println("invalid input", err)
+		http.Error(w, "invalid user input", http.StatusBadRequest)
 		return
 	}
 	validate := validator.New()
