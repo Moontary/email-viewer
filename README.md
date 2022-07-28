@@ -1,65 +1,70 @@
-# email-viewer
+# Email-viewer 
 
-This description shortly introduces how to run front-end part of app. Back-end handy version in progress.
+This description shortly introduces how to run the front-end part of app. Back-end handy version in progress. 
 
-## DONE 
+## DONE  
 
-Front-end:
-- Add/remove component.
-- Validation for non-empty input.
-- Validation for deletion of non-existent item.
-- Clearing input after adding/deliting the item.
-- Comma seperated output.
+Front-end: 
 
-Back-end:
-- Implemented POST end-point.
-- Validation for non-empty input.
-- Validation for existed data input.
-- Added status codes support.
-- Implemented core logic for GET and DELETE end-points.
-- [TO BE DELETED] MongoDB storage.
-- [TO BE DELETED] Communication with MongoDB.
-- Docker compose base. Added yaml config file.
+[x] Input field. 
+[x] Add/remove button. 
+[x] Validation for non-empty input. 
+[x] Validation for deletion of non-existent item. 
+[x] Clearing input after adding/deleting the item. 
+[x] Comma separated output. 
+  
+Back-end: 
 
-## TODO
+[x] Implemented POST end-point. 
+[x] Validation for non-empty input. 
+[x] Validation for existing data input. 
+[x] Implemented core logic for GET and DELETE end-points. 
+[x] [TO BE DELETED, CHANGE TO CSV] MongoDB storage.  
+[x] [TO BE DELETED, CHANGE TO CSV] Communication with MongoDB. 
+[x] Docker compose base. Testing required. 
 
-Front-end:
-- Validation.
-- Fetching.
-- Separate view list option to another component.
-- CSV rendering.
+## TODO 
 
-Back-end:
-- Fix validation.
-- Fix GET and DELETE end-points.
-- Fix architecture, foldering.
-- Apply clean code.
-- Edit status codes view.
-- Implement universal entrance.
- 
-## Config setup
+Front-end: 
+[] Validation cleaning. 
+[] Fetching. 
+[] Separate view list option to another component. 
+[] CSV rendering. 
 
-#### Compile and Hot-Reload for Development
+Back-end: 
+[] Fix validation. 
+[] Fix GET and DELETE end-points. 
+[] Fix architecture, folder structures. 
+[] Apply clean code. 
+[] Edit status codes view. 
+[] Implement unified entrance. 
+[] Make file 
 
-```sh
-npm run dev
-```
+## RUN Front-end 
 
-#### Compile and Minify for Production
+#### Compile and Hot-Reload for Development 
 
-```sh
-npm run build
-```
+```sh 
+npm run dev 
+```  
 
-## Back-end patterns for testing
+#### Compile and Minify for Production 
 
-```sh
-go run backend/main.go
-```
+```sh 
+npm run build 
+```   
 
-```postman
-Route: /
-[IN PROGRESS]GET: /emails
-POST: /email
-[IN PROGRESS]DELETE: /{email}
-```
+## RUN back-end  
+
+```sh 
+go run backend/main.go 
+```  
+
+## End-points for testing  
+
+```postman 
+Route: / 
+GET: /emails [IN PROGRESS] 
+POST: /email 
+DELETE: /{email} [IN PROGRESS] 
+```  
