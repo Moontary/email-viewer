@@ -27,17 +27,17 @@ Back-end:
 
 Front-end:
 - [ ] Validation cleaning.
-- [ ] Fetching.
+- [ ] ~~Fetching.~~
 - [ ] Separate view list option to another component.
 - [ ] CSV rendering.
 
 Back-end:
 - [ ] Fix validation.
 - [x] ~~Fix GET and DELETE end-points.~~
-- [ ] Fix architecture, folder structures.
+- [x] ~~Fix architecture, folder structures.~~
 - [ ] Apply clean code.
 - [ ] Edit status codes view.
-- [ ] Implement unified entrance.
+- [ ] ~~Implement unified entrance.~~
 - [ ] Add Makefile.
 
 ## RUN Front-end
