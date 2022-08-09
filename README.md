@@ -27,7 +27,7 @@ Back-end:
 
 Front-end:
 - [ ] Validation cleaning.
-- [ ] ~~Fetching.~~
+- [x] ~~Fetching.~~
 - [ ] Separate view list option to another component.
 - [ ] CSV rendering.
 
@@ -37,7 +37,7 @@ Back-end:
 - [x] ~~Fix architecture, folder structures.~~
 - [ ] Apply clean code.
 - [ ] Edit status codes view.
-- [ ] ~~Implement unified entrance.~~
+- [x] ~~Implement unified entrance.~~
 - [ ] Add Makefile.
 
 ## RUN Front-end
@@ -64,7 +64,7 @@ go run backend/main.go
 
 ```postman 
 Route: / 
-GET: /emails 
-POST: /email 
-DELETE: /{email} 
+GET: /
+POST: /
+DELETE: / 
 ```  
