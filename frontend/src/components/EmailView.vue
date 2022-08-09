@@ -10,36 +10,72 @@ export default {
   mounted() {
     this.created();
   },
+  // computed props
+  computed: {
+    list: function () {
+      return this.emailList.map((data) => data.address).toString();
+    },
+  },
   methods: {
     created: function () {
       // Simple GET request using fetch
-      fetch("http://localhost:8080/")
+      fetch("http://localhost:8080/", { method: "GET" })
         .then((response) => response.json())
-        .then((data) => (this.emailList = data.map((email) => email.address)))
+        .then((data) => (this.emailList = data))
         .catch((err) => (this.error = err));
     },
-    addToList() {
+    // addToList adds input email to the list
+    addToList: function () {
       if (this.email === "") {
         this.error = "Invalid input";
         return;
       }
+      fetch("http://localhost:8080/", {
+        method: "POST",
+        body: JSON.stringify({ address: this.email }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(response.statusText);
+        })
+        .then((data) => {
+          this.emailList.unshift(data);
+          this.email = "";
+        })
+        .catch((err) => (this.error = err));
 
-      this.emailList.unshift(this.email);
-
-      this.email = "";
       this.error = "";
     },
+    // remove deletes email from the list
     remove() {
-      if (this.email === "") return;
-      let idx = this.emailList.indexOf(this.email);
-      console.log(this.email);
-      if (idx !== -1) this.emailList.splice(idx, 1);
-      this.email = "";
+      if (this.email === "") {
+        this.error = "Input can't be empty";
+        return;
+      }
+      let email = this.emailList.find((e) => e.address === this.email);
+      if (email == null) {
+        this.error = "email doesn't exist";
+        return;
+      }
+      fetch(`http://localhost:8080/${email.id}`, { method: "DELETE" })
+        .then((response) => {
+          if (response.ok) {
+            let idx = this.emailList.findIndex((e) => e.address === this.email);
+            console.log(idx);
+            if (idx !== -1) this.emailList.splice(idx, 1);
+            this.email = "";
+            return;
+          }
+          return Promise.reject(response.statusText);
+        })
+        .catch((err) => (this.error = err));
     },
   },
 };
 </script>
-
+<!--template with buttons and forms description-->
 <template>
   <div>
     <label>
@@ -56,9 +92,7 @@ export default {
       </div>
     </label>
     <ul>
-      <!-- <li v-bind:key="i" v-bind:title="email" v-for="(email, i) in emailList"> -->
-      <span>{{ emailList.toString() }}</span>
-      <!-- </li> -->
+      <span>{{ list }}</span>
     </ul>
   </div>
 </template>
