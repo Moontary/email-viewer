@@ -6,7 +6,7 @@ type Config struct {
 }
 
 type Server struct {
-	Port string `default:":8080"`
+	Port string `default:":9090"`
 }
 
 type MongoDB struct {

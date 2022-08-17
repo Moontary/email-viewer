@@ -1,11 +1,10 @@
 package mongo
 
 import (
+	"backViewer/internal/config"
 	"backViewer/pkg/entity"
 	"backViewer/pkg/handlers"
 	"context"
-	"time"
-
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -26,23 +25,35 @@ var (
 var _ handlers.EmailRepo = (*EmailRepo)(nil)
 
 type EmailRepo struct {
-	Client   *mongo.Client
-	database string
+	Client *mongo.Client
 }
 
-func NewConn(email string) *EmailRepo {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	cl, _ := mongo.Connect(ctx, options.Client().ApplyURI(email))
-	er := &EmailRepo{
-		Client:   cl,
-		database: emailsDB,
+func NewConn(cfg config.MongoDB) (*EmailRepo, error) {
+	client, err := mongo.NewClient(
+		options.Client().ApplyURI(cfg.URI).
+			SetAuth(options.Credential{
+				Username: cfg.User,
+				Password: cfg.Password,
+			}))
+	if err != nil {
+		return nil, err
 	}
-	return er
+	ctx := context.Background()
+	if err := client.Connect(ctx); err != nil {
+		return nil, err
+	}
+	// if healthy
+	if err := client.Ping(ctx, nil); err != nil {
+		return nil, err
+	}
+	return &EmailRepo{
+		Client: client,
+	}, nil
 }
 
 func (er *EmailRepo) Create(ctx context.Context, email *entity.Email) (*entity.Email, error) {
 
-	collection := er.Client.Database(er.database).Collection(emailsCollection)
+	collection := er.Client.Database(emailsDB).Collection(emailsCollection)
 
 	result, err := collection.InsertOne(ctx, email, &options.InsertOneOptions{})
 	if err != nil {
@@ -60,7 +71,7 @@ func (er *EmailRepo) Create(ctx context.Context, email *entity.Email) (*entity.E
 }
 
 func (er *EmailRepo) GetEmailByID(ctx context.Context, id string) (*entity.Email, error) {
-	collection := er.Client.Database(er.database).Collection(emailsCollection)
+	collection := er.Client.Database(emailsDB).Collection(emailsCollection)
 
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
@@ -78,7 +89,7 @@ func (er *EmailRepo) GetEmailByID(ctx context.Context, id string) (*entity.Email
 }
 
 func (er *EmailRepo) GetEmailByAddress(ctx context.Context, address string) (*entity.Email, error) {
-	collection := er.Client.Database(er.database).Collection(emailsCollection)
+	collection := er.Client.Database(emailsDB).Collection(emailsCollection)
 	filter := bson.M{"address": address}
 	var email entity.Email
 	err := collection.FindOne(ctx, filter).Decode(&email)
@@ -86,7 +97,7 @@ func (er *EmailRepo) GetEmailByAddress(ctx context.Context, address string) (*en
 }
 
 func (er *EmailRepo) GetAll(ctx context.Context) ([]entity.Email, error) {
-	collection := er.Client.Database(er.database).Collection(emailsCollection)
+	collection := er.Client.Database(emailsDB).Collection(emailsCollection)
 
 	emails := make([]entity.Email, 0)
 
@@ -98,7 +109,7 @@ func (er *EmailRepo) GetAll(ctx context.Context) ([]entity.Email, error) {
 	defer func(cursor *mongo.Cursor, ctx context.Context) {
 		err := cursor.Close(ctx)
 		if err != nil {
-
+			return
 		}
 	}(cursor, ctx)
 	for cursor.Next(ctx) {
@@ -113,8 +124,11 @@ func (er *EmailRepo) GetAll(ctx context.Context) ([]entity.Email, error) {
 }
 
 func (er *EmailRepo) AddOne(ctx context.Context, email *entity.Email) (*entity.Email, error) {
-	collection := er.Client.Database(er.database).Collection(emailsCollection)
+	collection := er.Client.Database(emailsDB).Collection(emailsCollection)
 	result, err := collection.InsertOne(ctx, email)
+	if err != nil {
+		return nil, err
+	}
 
 	objectID, ok := result.InsertedID.(primitive.ObjectID)
 	if !ok {
@@ -127,7 +141,7 @@ func (er *EmailRepo) AddOne(ctx context.Context, email *entity.Email) (*entity.E
 
 func (er *EmailRepo) RemoveOne(ctx context.Context, id string) error {
 
-	collection := er.Client.Database(er.database).Collection(emailsCollection)
+	collection := er.Client.Database(emailsDB).Collection(emailsCollection)
 
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {

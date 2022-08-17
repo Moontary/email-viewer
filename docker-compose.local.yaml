@@ -1,16 +1,47 @@
-
-version: "3.8"
+version: "3.9"
 
 services:
+
+  frontend:
+    networks:
+      - products_network
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+
+  server:
+    networks:
+      - products_network
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    environment:
+      MONGODB_URI: 'mongodb://mongodb:27017'
+      MONGODB_USER: admin
+      MONGODB_PASSWORD: admin
+    restart: always
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+
   mongodb:
     image: mongo:latest
     restart: always
+    container_name: "mongodb"
+    networks:
+      - products_network
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
       MONGODB_DATABASE: emails
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongodb_data_container:/data/db
 

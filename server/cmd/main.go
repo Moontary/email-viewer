@@ -1,26 +1,28 @@
 package main
 
 import (
+	"backViewer/internal/config"
 	"backViewer/internal/mongo"
 	"backViewer/pkg/handlers"
 	"context"
-	"flag"
+	"fmt"
+	"github.com/kelseyhightower/envconfig"
 	"log"
 	"net/http"
 )
 
 func main() {
-
 	// Define env variables
-	var (
-		host     = flag.String("host", ":8080", "The host of the application.")
-		mongoURI = flag.String("mongo_uri", "mongodb://localhost:27017", "Database connection URI")
-	)
-
-	flag.Parse()
-
+	var cfg config.Config
+	if err := envconfig.Process("", &cfg); err != nil {
+		log.Fatal(err.Error())
+	}
+	fmt.Println(cfg)
 	// Connection to mongoDB
-	mr := mongo.NewConn(*mongoURI)
+	mr, err := mongo.NewConn(cfg.MongoDB)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer func() {
 		if err := mr.Client.Disconnect(context.Background()); err != nil {
 			log.Fatal(err)
@@ -28,5 +30,5 @@ func main() {
 	}()
 	router := handlers.NewEmailHandler(mr)
 
-	log.Fatal(http.ListenAndServe(*host, router))
+	log.Fatal(http.ListenAndServe(cfg.Server.Port, router))
 }
