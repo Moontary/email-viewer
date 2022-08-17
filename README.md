@@ -1,70 +1,116 @@
-# Email-viewer
+# Go & Vue.js Web app 
+___
 
-This description shortly introduces how to run the front-end part of app. Back-end handy version in progress.
+This is a simple web application with a Go server/backend and a Vue.js frontend.
+
+The app is designed to make it easy to use any storage, using Hexagonal architecture.
+Organized based on containers, in order to provide a real working application for development/deployment.
+Something more than "hello-world" but with the minimum of pre-reqs.
+
+Currently ready for local build using Golang, Vue.js, MongoDB, Docker.
+
+* The Frontend written in [Vue.js 3](https://vuejs.org/guide/quick-start.html)
+* The Go component is a Go HTTP server based on [Chi](https://go-chi.io/#/README) routing
+
+**Features**:
+* View data
+* Add to DB
+* Delete object from list 
+* Docker compose wrapped
 
 ## DONE
-
+___
 Front-end:
 
-- [x] Input field.
-- [x] Add/remove button.
-- [x] Validation for non-empty input.
-- [x] Validation for deletion of non-existent item.
-- [x] Clearing input after adding/deleting the item.
-- [x] Comma separated output.
+- [x] Input field
+- [x] Add/remove button
+- [x] Validation for non-empty input
+- [x] Validation for deletion of non-existent item
+- [x] Clearing input after adding/deleting the item
+- [x] Comma separated output
 
 Back-end:
 
-- [x] Implemented POST end-point.
-- [x] Validation for non-empty input.
-- [x] Validation for existing data input.
-- [x] Implemented core logic for GET and DELETE end-points.
-- [x] [TO BE DELETED, CHANGE TO CSV] MongoDB storage.  
-- [x] [TO BE DELETED, CHANGE TO CSV] Communication with MongoDB.
-- [x] Docker compose base. Testing required.
+- [x] Implemented POST end-point
+- [x] Validation for non-empty input
+- [x] Validation for existing data input
+- [x] Implemented core logic for GET and DELETE end-points
+- [x] MongoDB storage
+- [x] Communication with MongoDB
+- [x] Docker compose
 
 ## TODO
-
+___
 Front-end:
-- [ ] Validation cleaning.
+- [ ] Validation clean
 - [x] ~~Fetching.~~
 - [ ] Separate view list option to another component.
 - [ ] CSV rendering.
 
 Back-end:
-- [ ] Fix validation.
+- [ ] Fix validation
 - [x] ~~Fix GET and DELETE end-points.~~
 - [x] ~~Fix architecture, folder structures.~~
-- [ ] Apply clean code.
-- [ ] Edit status codes view.
+- [x] Apply clean code.
+- [x] ~~Edit status codes view.~~
 - [x] ~~Implement unified entrance.~~
-- [ ] Add Makefile.
+- [x] ~~Add Makefile.~~
+- [x] ~~Apply hexagonal architecture.~~
 
-## RUN Front-end
+General:
+- [ ] Add lintering to Makefile.
+- [ ] Refactor REST.
+- [ ] Add tests.
+- [ ] Apply CI/CD.
+- [ ] Add Swagger.
 
-#### Compile and Hot-Reload for Development
+## Repo Structure
+___
+```
+├── frontend            Root of the Vue.js project
+│ └── src               Vue.js source code
+└── server              Go backend server
+  ├── cmd               Server main / exec
+  ├── internal          Storage packages
+  └── pkg               Supporting packages
+```
+## Building & Running Locally
+___
+### Pre-reqs
+* Be using Linux, WSL or MACOS, with bash, make etc
+* [Vue.js](https://vuejs.org/guide/quick-start.html) - run frontend  
+* [Vite](https://vitejs.dev/) - tooling for frontend
+* [Go 1.16+](https://golang.org/doc/install) - for running locally
+* [Docker](https://docs.docker.com/get-docker/) - for running as a container, or image build
+* [MongoDB Compass](https://www.mongodb.com/products/compass) - view collection data after applying changes 
 
-```sh 
-npm run dev 
-```  
+Clone the project to any directory where you do development work
 
-#### Compile and Minify for Production
+```
+git clone https://github.com/moontary/email-viewer.git
+```
 
-```sh 
-npm run build 
-```   
+### Makefile
 
-## RUN back-end
+Current version GNU Make file is provided to help with running and building locally.
 
-```sh 
-go run backend/main.go 
-```  
+```
+up          Start Build
+down        Stop an remove containers
+logs        View logs
+```
 
-## End-points for testing
+* The server will listen on port 9090 by default, change this by setting the `config/config.go` variable.
 
-```postman 
-Route: / 
-GET: /
-POST: /
-DELETE: / 
-```  
+## Config
+
+Environmental variables
+
+Frontend:
+
+* `VITE_URL` - Port for serving connection between containers. 
+
+Backend:
+
+* `Port` - Port to listen on (default: `9090`)
+* `URI` - Port for DB to listen on (default: `27017`)
