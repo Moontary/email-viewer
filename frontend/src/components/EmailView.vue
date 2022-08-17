@@ -19,7 +19,8 @@ export default {
   methods: {
     created: function () {
       // Simple GET request using fetch
-      fetch("http://localhost:8080/", { method: "GET" })
+      const URL = import.meta.env.VITE_URL;
+      fetch(URL, { method: "GET" })
         .then((response) => response.json())
         .then((data) => (this.emailList = data))
         .catch((err) => (this.error = err));
@@ -30,7 +31,7 @@ export default {
         this.error = "Invalid input";
         return;
       }
-      fetch("http://localhost:8080/", {
+      fetch(import.meta.env.VITE_URL, {
         method: "POST",
         body: JSON.stringify({ address: this.email }),
       })
@@ -59,7 +60,7 @@ export default {
         this.error = "email doesn't exist";
         return;
       }
-      fetch(`http://localhost:8080/${email.id}`, { method: "DELETE" })
+      fetch(`http://127.0.0.1:9090/${email.id}`, { method: "DELETE" })
         .then((response) => {
           if (response.ok) {
             let idx = this.emailList.findIndex((e) => e.address === this.email);

@@ -1,6 +1,6 @@
 {
   "name": "email-viewer",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "http-server": "^14.1.1",
     "vue": "^3.2.37"
   },
   "devDependencies": {
