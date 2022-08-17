@@ -1,6 +1,9 @@
 # Go & Vue.js Web app 
 ___
 
+<img width="1433" alt="Screenshot 2022-08-17 at 22 56 48" src="https://user-images.githubusercontent.com/19240229/185249471-49de37e6-8279-473b-bbfc-60ee7f69cc90.png">
+
+
 This is a simple web application with a Go server/backend and a Vue.js frontend.
 
 The app is designed to make it easy to use any storage, using Hexagonal architecture.
@@ -17,6 +20,10 @@ Currently ready for local build using Golang, Vue.js, MongoDB, Docker.
 * Add to DB
 * Delete object from list 
 * Docker compose wrapped
+
+
+https://user-images.githubusercontent.com/19240229/185249415-e0b50188-f27d-43a7-a53d-f1c49c96f05a.mov
+
 
 ## DONE
 ___
